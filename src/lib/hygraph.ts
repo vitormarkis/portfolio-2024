@@ -45,6 +45,8 @@ export const hygraph = async () => {
     {
       headers: {
         'Cache-Control': 'no-cache',
+        Pragma: 'no-cache',
+        Expires: '0',
         'Content-Type': 'application/json',
         Accept: 'application/json',
         Authorization: `Bearer ${process.env.HYGRAPH_TOKEN}`,
