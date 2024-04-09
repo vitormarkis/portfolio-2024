@@ -7,8 +7,8 @@ import { hygraph } from '@/lib/hygraph'
 import { readingTime } from '@/lib/readingTime'
 import { format } from 'date-fns'
 import { MoveLeft } from 'lucide-react'
-import { marked } from 'marked'
 import Link from 'next/link'
+import { Posts } from './components/posts'
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const { blogs } = await hygraph()
@@ -23,7 +23,16 @@ export default async function Page({ params }: { params: { slug: string } }) {
     return (
       <div className="space-y-2 divide-y">
         <title>{blog.title}</title>
-        <meta name="description" content={blog.description} />
+        <meta
+          name="description"
+          content={blog.content
+            .replace(
+              /\[.*?\]|\*\*.*?\*\*|\*.*?\*|\d\..*?\n|!\[.*?\]\(.*?\)|#+\s?.*?\n/g,
+              '',
+            )
+            .replace(/-/g, '')
+            .replace(/:/g, '')}
+        />
         <div className="space-y-1">
           <h2 className="text-3xl font-bold">{blog.title}</h2>
           <p className="text-xs font-medium text-black/40">
@@ -56,17 +65,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
               </CarouselContent>
             </Carousel>
           )}
-          <div
-            className="sm:text-base text-sm prose prose-a:text-violet-600 prose-img:rounded-md pt-2 lg:min-w-[600px] lg:pr-3"
-            dangerouslySetInnerHTML={{
-              __html: marked.parse(
-                content.replace(/##\s*(.*?)\n/g, (match, p1) => {
-                  const id = p1.replace(/\s/g, '-').toLowerCase()
-                  return `## <span id="${id}">${p1}</span>\n`
-                }),
-              ),
-            }}
-          ></div>
+          <Posts content={content} />
         </div>
       </div>
     )

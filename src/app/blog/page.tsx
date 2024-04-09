@@ -1,12 +1,14 @@
 import Link from 'next/link'
 
 import { format } from 'date-fns'
-import { marked } from 'marked'
 import { hygraph } from '../../lib/hygraph'
 import { readingTime } from '../../lib/readingTime'
+import { revalidateTag } from 'next/cache'
 
 export default async function Blog() {
   const { blogs } = await hygraph()
+
+  revalidateTag('portfolio')
 
   if (blogs.length > 0) {
     return (
@@ -20,12 +22,15 @@ export default async function Blog() {
               {blog.title}
             </Link>
             <div
-              className="text-sm text-black/60 line-clamp-3"
+              className="text-sm text-black/60 line-clamp-4"
               dangerouslySetInnerHTML={{
-                __html: String(marked.parse(blog.content)).replace(
-                  /<img.*?>/g,
-                  '',
-                ),
+                __html: blog.content
+                  .replace(
+                    /\[.*?\]|\*\*.*?\*\*|\*.*?\*|\d\..*?\n|!\[.*?\]\(.*?\)|#+\s?.*?\n/g,
+                    '',
+                  )
+                  .replace(/-/g, '')
+                  .replace(/:/g, ''),
               }}
             ></div>
             <p className="text-xs font-medium text-black/40">

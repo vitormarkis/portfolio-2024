@@ -16,7 +16,6 @@ const query = `
       content
       createdAt
       id
-      description
     }
   }
 `
@@ -34,7 +33,6 @@ export interface portfolioProps {
     content: string
     createdAt: string
     id: string
-    description: string
   }[]
 }
 
@@ -42,6 +40,9 @@ export const hygraph = async () => {
   const response = await fetch(process.env.HYGRAPH_URL!, {
     method: 'POST',
     headers: {
+      'Cache-Control': 'no-cache',
+      Pragma: 'no-cache',
+      Expires: '0',
       'Content-Type': 'application/json',
       Accept: 'application/json',
       Authorization: `Bearer ${process.env.HYGRAPH_TOKEN}`,
