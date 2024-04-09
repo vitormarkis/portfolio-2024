@@ -14,7 +14,7 @@ export function Posts({ content }: { content: string }) {
           content.replace(/##\s*(.*?)\n/g, (_, text) => {
             const id = text.replace(/\s/g, '-').toLowerCase()
             const linkUrl = process.env.NEXT_PUBLIC_URL + url + '#' + id
-            return `## <span id="${id}" class="cursor-pointer group hover:text-purple-500" onclick="navigator.clipboard.writeText('${linkUrl}')">${text} <img src="/link.svg" class=" m-0 size-4 group-hover:inline-block hidden" alt="Ícone do Lucid"/></span>\n`
+            return `## <span id="${id}" class="cursor-pointer group select-none hover:text-purple-500" onclick="navigator.clipboard.writeText('${linkUrl}')">${text} <img src="/link.svg" class=" m-0 size-4 group-hover:inline-block hidden" alt="Ícone do Lucid"/></span>\n`
           }),
         ),
       }}
