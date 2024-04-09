@@ -44,6 +44,7 @@ export const hygraph = async () => {
     JSON.stringify({ query }),
     {
       headers: {
+        'Cache-Control': 'no-cache',
         'Content-Type': 'application/json',
         Accept: 'application/json',
         Authorization: `Bearer ${process.env.HYGRAPH_TOKEN}`,
