@@ -7,8 +7,7 @@ export default async function Home() {
 
   return (
     <div
-      id="content"
-      className="sm:text-base text-sm prose prose-a:text-violet-600 prose-img:rounded-md"
+      className="sm:text-base text-sm prose prose-a:text-violet-600 prose-img:rounded-md min-w-full"
       dangerouslySetInnerHTML={{ __html: textFormartMarkdown }}
     ></div>
   )
