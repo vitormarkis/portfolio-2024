@@ -15,13 +15,13 @@ export function HeaderMenu() {
       </Link>
       <Link
         href="/blog"
-        className={`${path === '/blog' ? 'text-black' : 'text-black/20'} pl-4 font-semibold hover:underline hover:text-black`}
+        className={`${path.includes('/blog') ? 'text-black' : 'text-black/20'} pl-4 font-semibold hover:underline hover:text-black`}
       >
         Blog
       </Link>
       <Link
         href="/projects"
-        className={`${path === '/projects' ? 'text-black' : 'text-black/20'} pl-4 font-semibold hover:underline hover:text-black`}
+        className={`${path.includes('/projects') ? 'text-black' : 'text-black/20'} pl-4 font-semibold hover:underline hover:text-black`}
       >
         Projects
       </Link>
