@@ -8,7 +8,7 @@ export function Posts({ content }: { content: string }) {
 
   return (
     <div
-      className="sm:text-base text-sm prose prose-a:text-violet-600 prose-img:rounded-md pt-2 lg:min-w-[600px] lg:pr-3"
+      className="sm:text-base text-sm prose lg:min-w-[600px] prose-pre:overflow-auto prose-pre:w-full prose-pre:table-fixed prose-a:text-violet-600 prose-img:rounded-md pt-2 lg:pr-3"
       dangerouslySetInnerHTML={{
         __html: marked.parse(
           content.replace(/##\s*(.*?)\n/g, (_, text) => {

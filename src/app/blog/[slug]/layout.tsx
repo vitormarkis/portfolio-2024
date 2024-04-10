@@ -12,9 +12,10 @@ export default async function BlogLayout({
   const blog = blogs.find(
     ({ id }) => id === params.slug.split('-').slice(-1).toString(),
   )
+
   const titles = blog?.content.match(/##\s*(.*?)\n/g)
   return (
-    <div className="flex justify-end flex-row-reverse lg:min-w-[850px]">
+    <div className="lg:flex justify-end flex-row-reverse lg:min-w-[850px]">
       {titles && (
         <div className="relative border-l h-auto pl-4 lg:block hidden">
           <nav className="sticky top-4 space-y-2">

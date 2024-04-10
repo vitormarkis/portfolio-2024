@@ -34,7 +34,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
             .replace(/:/g, '')}
         />
         <div className="space-y-1">
-          <h2 className="text-3xl font-bold">{blog.title}</h2>
+          <h2 className="sm:text-3xl text-xl font-bold">{blog.title}</h2>
           <p className="text-xs font-medium text-black/40">
             {format(new Date(blog.createdAt), 'MMMM dd, yyyy')} -{' '}
             {readingTime(blog.content)} min read
@@ -42,8 +42,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
         </div>
         <div className="flex lg:flex-row flex-col">
           {titles && (
-            <Carousel className="w-full bg-white sticky top-0 lg:text-sm text-xs mt-2 lg:hidden block p-2">
-              <CarouselContent>
+            <Carousel className="w-full min-w-full bg-white sticky top-0 lg:text-sm text-xs mt-2 lg:hidden block p-2">
+              <CarouselContent className="max-w-[200px]">
                 {titles.map((title, index) => (
                   <CarouselItem
                     key={index}
