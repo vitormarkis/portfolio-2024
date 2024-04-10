@@ -52,9 +52,10 @@ export const hygraph = async () => {
     body: JSON.stringify({ query }),
     next: {
       tags: ['portfolio'],
-      revalidate: 1000,
+      revalidate: 10,
     },
   })
+
   const { data } = await response.json()
   return data as portfolioProps
 }
