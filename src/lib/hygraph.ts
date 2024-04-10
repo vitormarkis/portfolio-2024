@@ -16,6 +16,7 @@ const query = `
       content
       createdAt
       id
+      tags
     }
   }
 `
@@ -33,6 +34,7 @@ export interface portfolioProps {
     content: string
     createdAt: string
     id: string
+    tags: string[]
   }[]
 }
 

@@ -13,8 +13,8 @@ export default async function Blog() {
   if (blogs.length > 0) {
     return (
       <div className="w-full flex flex-col-reverse gap-4">
-        {blogs.map((blog, index) => (
-          <div key={index} className="w-full space-y-1">
+        {blogs.map((blog) => (
+          <div key={blog.id} className="w-full space-y-1">
             <Link
               href={`/blog/${blog.title.replace(/ /g, '-') + '-' + blog.id}`}
               className="text-lg font-bold hover:underline"
@@ -33,6 +33,16 @@ export default async function Blog() {
                   .replace(/:/g, ''),
               }}
             ></div>
+            <div className="space-x-2">
+              {blog.tags.map((tag) => (
+                <p
+                  key={tag}
+                  className="text-xs inline-block px-2 py-1 rounded-full bg-muted"
+                >
+                  {tag}
+                </p>
+              ))}
+            </div>
             <p className="text-xs font-medium text-black/40">
               {format(new Date(blog.createdAt), 'MMMM dd, yyyy')} -{' '}
               {readingTime(blog.content)} min read
