@@ -3,14 +3,11 @@ import Link from 'next/link'
 import { format } from 'date-fns'
 import { hygraph } from '../../lib/hygraph'
 import { readingTime } from '../../lib/readingTime'
-import { revalidateTag } from 'next/cache'
 import { Suspense } from 'react'
 import { Skeleton } from '@/components/ui/skeleton'
 
 export default async function Blog() {
   const { blogs } = await hygraph()
-
-  revalidateTag('portfolio')
 
   if (blogs.length > 0) {
     return (
