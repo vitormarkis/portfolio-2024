@@ -1,16 +1,13 @@
 'use client'
 
+import { hygraph } from '@/lib/hygraph'
 import { usePathname } from 'next/navigation'
 
-interface HeaderTitleProps {
-  abouts: {
-    title: string
-    description: string[]
-  }[]
-}
+interface HeaderTitleProps {}
 
-export function HeaderTitle({ abouts }: HeaderTitleProps) {
+export async function HeaderTitle() {
   const path = usePathname()
+  const { abouts } = await hygraph()
   const { title, description } = abouts[0]
 
   return (

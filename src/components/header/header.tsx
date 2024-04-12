@@ -1,20 +1,26 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { hygraph } from '@/lib/hygraph'
 import { HeaderMenu } from './headerMenu'
 import { HeaderTitle } from './headerTitle'
-import { hygraph } from '@/lib/hygraph'
 
-export async function Header() {
-  const { abouts } = await hygraph()
+export function Header() {
   return (
     <div className="flex flex-col gap-2 mb-10">
       <div className="flex items-center gap-2">
-        <Avatar>
-          <AvatarImage src={abouts[0].image.url} />
-          <AvatarFallback>WG</AvatarFallback>
-        </Avatar>
-        <HeaderTitle abouts={abouts} />
+        <HeaderAvatar />
+        <HeaderTitle />
       </div>
       <HeaderMenu />
     </div>
+  )
+}
+
+async function HeaderAvatar() {
+  const { abouts } = await hygraph()
+  return (
+    <Avatar>
+      <AvatarImage src={abouts[0].image.url} />
+      <AvatarFallback>WG</AvatarFallback>
+    </Avatar>
   )
 }

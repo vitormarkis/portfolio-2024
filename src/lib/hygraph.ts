@@ -1,3 +1,5 @@
+import { portfolio } from "@/dummy-data"
+
 const query = `
   query Portfolio {
     abouts {
@@ -33,7 +35,7 @@ const query = `
   }
 `
 
-export interface portfolioProps {
+export interface PortfolioProps {
   abouts: {
     title: string
     id: string
@@ -68,25 +70,15 @@ export interface portfolioProps {
 
 export const hygraph = async () => {
   try {
-    const response = await fetch(process.env.HYGRAPH_URL!, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${process.env.HYGRAPH_TOKEN}`,
-      },
-      body: JSON.stringify({ query }),
-      cache: 'no-store',
+    const response = await new Promise<typeof portfolio>((res) => {
+      setTimeout(() => {
+        res(portfolio)
+      }, 1200)
     })
 
-    if (!response.ok) {
-      throw new Error('Error ao buscar a API')
-    }
-
-    const { data } = await response.json()
-    return data as portfolioProps
+    return response
   } catch (error) {
-    console.error('Error ao buscar dados:', error)
+    console.error("Error ao buscar dados:", error)
     throw error
   }
 }
