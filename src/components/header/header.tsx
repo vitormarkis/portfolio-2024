@@ -9,7 +9,7 @@ export async function Header() {
     <div className="flex flex-col gap-2 mb-10">
       <div className="flex items-center gap-2">
         <Avatar>
-          <AvatarImage src="https://github.com/wendesongomes.png" />
+          <AvatarImage src={abouts[0].image.url} />
           <AvatarFallback>WG</AvatarFallback>
         </Avatar>
         <HeaderTitle abouts={abouts} />

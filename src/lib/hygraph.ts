@@ -9,6 +9,7 @@ const query = `
         url
       }
     }
+    
     blogs {
       title
       content
@@ -16,6 +17,19 @@ const query = `
       id
       tags
     }
+    
+    projects {
+      banner {
+        url
+      }
+      title
+      tags
+      content
+      website
+      githubRepo
+      id
+      createdAt
+    } 
   }
 `
 
@@ -25,6 +39,9 @@ export interface portfolioProps {
     id: string
     information: string
     description: string[]
+    image: {
+      url: string
+    }
   }[]
 
   blogs: {
@@ -34,20 +51,42 @@ export interface portfolioProps {
     id: string
     tags: string[]
   }[]
+
+  projects: {
+    banner: {
+      url: string
+    }
+    title: string
+    tags: string[]
+    content: string
+    website: string
+    githubRepo: string
+    id: string
+    createdAt: string
+  }[]
 }
 
 export const hygraph = async () => {
-  const response = await fetch(process.env.HYGRAPH_URL!, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      Authorization: `Bearer ${process.env.HYGRAPH_TOKEN}`,
-    },
-    body: JSON.stringify({ query }),
-    cache: 'no-store',
-  })
+  try {
+    const response = await fetch(process.env.HYGRAPH_URL!, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${process.env.HYGRAPH_TOKEN}`,
+      },
+      body: JSON.stringify({ query }),
+      cache: 'no-store',
+    })
 
-  const { data } = await response.json()
-  return data as portfolioProps
+    if (!response.ok) {
+      throw new Error('Error ao buscar a API')
+    }
+
+    const { data } = await response.json()
+    return data as portfolioProps
+  } catch (error) {
+    console.error('Error ao buscar dados:', error)
+    throw error
+  }
 }

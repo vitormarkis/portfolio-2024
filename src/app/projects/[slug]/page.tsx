@@ -11,21 +11,21 @@ import { format } from 'date-fns'
 import Link from 'next/link'
 
 export default async function Page({ params }: { params: { slug: string } }) {
-  const { blogs } = await hygraph()
-  const blog = blogs.find(
+  const { projects } = await hygraph()
+  const project = projects.find(
     ({ id }) => id === params.slug.split('-').slice(-1).toString(),
   )
 
-  if (blog) {
-    const titles = blog.content.match(/##\s*(.*?)\n/g)
-    const content = blog.content
+  if (project) {
+    const titles = project.content.match(/##\s*(.*?)\n/g)
+    const content = project.content
 
     return (
       <div className="space-y-2 divide-y">
-        <title>{blog.title}</title>
+        <title>{project.title}</title>
         <meta
           name="description"
-          content={blog.content
+          content={project.content
             .replace(
               /\[.*?\]|\*\*.*?\*\*|\*.*?\*|\d\..*?\n|!\[.*?\]\(.*?\)|#+\s?.*?\n/g,
               '',
@@ -34,10 +34,10 @@ export default async function Page({ params }: { params: { slug: string } }) {
             .replace(/:/g, '')}
         />
         <div className="space-y-1">
-          <h2 className="sm:text-3xl text-xl font-bold">{blog.title}</h2>
+          <h2 className="sm:text-3xl text-xl font-bold">{project.title}</h2>
           <p className="text-xs font-medium text-black/40">
-            {format(new Date(blog.createdAt), 'MMMM dd, yyyy')} -{' '}
-            {readingTime(blog.content)} min read
+            {format(new Date(project.createdAt), 'MMMM dd, yyyy')} -{' '}
+            {readingTime(project.content)} min read
           </p>
         </div>
         <div className="flex lg:flex-row flex-col">
@@ -71,5 +71,5 @@ export default async function Page({ params }: { params: { slug: string } }) {
     )
   }
 
-  return <ComponentNotFound url="/blog" />
+  return <ComponentNotFound url="/projects" />
 }

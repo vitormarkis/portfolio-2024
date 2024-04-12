@@ -4,25 +4,14 @@ import { format } from 'date-fns'
 import { hygraph } from '../../lib/hygraph'
 import { readingTime } from '../../lib/readingTime'
 import { Suspense } from 'react'
-import { Skeleton } from '@/components/ui/skeleton'
+import { LoadingBlogs } from '@/components/loading/loadingBlogs'
 
 export default async function Blog() {
   const { blogs } = await hygraph()
 
-  if (blogs.length > 0) {
+  if (blogs.length) {
     return (
-      <Suspense
-        fallback={
-          <div className="w-full flex flex-col-reverse gap-4">
-            <Skeleton className="w-full h-40" />
-            <Skeleton className="w-full h-40" />
-            <Skeleton className="w-full h-40" />
-            <Skeleton className="w-full h-40" />
-            <Skeleton className="w-full h-40" />
-            <Skeleton className="w-full h-40" />
-          </div>
-        }
-      >
+      <Suspense fallback={<LoadingBlogs />}>
         <div className="w-full flex flex-col-reverse gap-4">
           {blogs.map((blog) => (
             <div key={blog.id} className="w-full space-y-1">
@@ -68,7 +57,7 @@ export default async function Blog() {
   return (
     <div className="w-full flex flex-col-reverse gap-4">
       <div className="w-full space-y-1">
-        <p className="text-lg font-bold">Nenhum blog encontrado</p>
+        <p className="text-lg font-bold">Nenhum post encontrado.</p>
       </div>
     </div>
   )

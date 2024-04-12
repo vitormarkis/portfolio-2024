@@ -3,19 +3,19 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { hygraph } from '@/lib/hygraph'
 import { Suspense } from 'react'
 
-export default async function BlogLayout({
+export default async function ProjectLayout({
   params,
   children,
 }: {
   children: React.ReactNode
   params: { slug: string }
 }) {
-  const { blogs } = await hygraph()
-  const blog = blogs.find(
+  const { projects } = await hygraph()
+  const project = projects.find(
     ({ id }) => id === params.slug.split('-').slice(-1).toString(),
   )
 
-  const titles = blog?.content.match(/##\s*(.*?)\n/g)
+  const titles = project?.content.match(/##\s*(.*?)\n/g)
 
   return (
     <Suspense
