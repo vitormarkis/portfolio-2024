@@ -14,6 +14,7 @@ import Link from 'next/link'
 import { Suspense } from 'react'
 
 export default async function Projects() {
+  // await em default async ❌❌❌
   const { projects } = await hygraph()
 
   if (projects.length) {

@@ -1,4 +1,4 @@
-import { portfolio } from "@/dummy-data"
+import { portfolio } from '@/dummy-data'
 
 const query = `
   query Portfolio {
@@ -73,12 +73,12 @@ export const hygraph = async () => {
     const response = await new Promise<typeof portfolio>((res) => {
       setTimeout(() => {
         res(portfolio)
-      }, 1200)
+      }, 2000)
     })
 
     return response
   } catch (error) {
-    console.error("Error ao buscar dados:", error)
+    console.error('Error ao buscar dados:', error)
     throw error
   }
 }

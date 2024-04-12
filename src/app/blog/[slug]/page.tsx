@@ -8,12 +8,28 @@ import {
 import { hygraph } from '@/lib/hygraph'
 import { readingTime } from '@/lib/readingTime'
 import { format } from 'date-fns'
+import { cookies } from 'next/headers'
 import Link from 'next/link'
+import { Suspense } from 'react'
 
 export default async function Page({ params }: { params: { slug: string } }) {
-  const { blogs } = await hygraph()
+  cookies() // so pra simular o "no-store" do fetch
+
+  return (
+    <Suspense
+      fallback={Array.from({ length: 3 }).map((_, i) => (
+        <div key={i} className="mt-2 h-16 w-full bg-zinc-300 animate-pulse" />
+      ))}
+    >
+      <BlogItem blogSlug={params.slug} />
+    </Suspense>
+  )
+}
+
+async function BlogItem({ blogSlug }: { blogSlug: string }) {
+  const { blogs } = await hygraph() // essa query deveria pegar apenas o blog especifico...
   const blog = blogs.find(
-    ({ id }) => id === params.slug.split('-').slice(-1).toString(),
+    ({ id }) => id === blogSlug.split('-').slice(-1).toString(),
   )
 
   if (!blog) {
